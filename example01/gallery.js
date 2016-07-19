@@ -4,8 +4,8 @@ $(function(){
         $prevBtn  = $('.gallery__navIcon--prev'),
         $nextBtn  = $('.gallery__navIcon--next'),
         _len      = $imgItems.length,
-        _currIdx  = 0,
-        _isLoop   = true;
+        _currIdx  = 0,      //當前 image id
+        _isLoop   = false;  //是否循環播放
 
     //--helper--
     function isPrev(id) {
@@ -29,7 +29,7 @@ $(function(){
     }
 
     function hasNext() {
-        return _currIdx < _len;
+        return _currIdx < _len - 1;
     }
 
     function hasPrev() {
