@@ -116,22 +116,19 @@ body {
         top: 0;
         -webkit-transition:all .5s;
     }
-    .slider .main .main-i h2 {
+    .slider .main .main-i_active h2 {
         margin-right: 45px;
     }
-    .slider .main .main-i h3 {
+    .slider .main .main-i_active h3 {
         margin-right: -45px;
     }
-    .slider .main .main-i h2,
-    .slider .main .main-i h3 {
+    .slider .main .main-i_active h2,
+    .slider .main .main-i_active h3 {
         -webkit-transition:all .8s 1s;
     }
     .slider .main .main-i_active {
         opacity: 1;
         right: 0%;
     }
-
-
-
 
 
