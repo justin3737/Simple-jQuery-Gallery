@@ -115,8 +115,13 @@ body {
         position: absolute;
         right: 50%;
         top: 0;
+        z-index: 2;
         -webkit-transition:all .5s;
     }
+    .slider .main .main-i_right {
+        right: -50%;
+    }
+
     .slider .main .main-i h2 {
         margin-right: 45px;
     }
@@ -125,12 +130,17 @@ body {
     }
     .slider .main .main-i h2,
     .slider .main .main-i h3 {
-        -webkit-transition:all 1s .8s;
         opacity: 0;
+        -webkit-transition:all 1s .8s;
     }
+    #main_background,
     .slider .main .main-i_active {
-        opacity: 1;
         right: 0;
+        opacity: 1;
+        z-index: 2;
+    }
+    #main_background {
+        z-index: 1;
     }
     .slider .main .main-i_active h2,
     .slider .main .main-i_active h3 {

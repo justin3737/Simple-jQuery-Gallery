@@ -35,7 +35,8 @@ function addSliders() {
         var _html_main = tpl_main
                 .replace(/{{index}}/g, data[i].img)
                 .replace(/{{h2}}/g, data[i].h1)
-                .replace(/{{h3}}/g, data[i].h2);
+                .replace(/{{h3}}/g, data[i].h2)
+                .replace(/{{css}}/g, ['','main-i_right'][i%2]);
         var _html_ctrl = tpl_ctrl
                 .replace(/{{index}}/g, data[i].img);
         out_main.push(_html_main);
@@ -45,6 +46,14 @@ function addSliders() {
     // 回寫到 HTML
     g('template_main').innerHTML = out_main.join('');
     g('template_ctrl').innerHTML = out_ctrl.join('');
+
+    // 增加#main_background
+    g('template_main').innerHTML += tpl_main
+                .replace(/{{index}}/g, '{{index}}')
+                .replace(/{{h2}}/g, data[i].h1)
+                .replace(/{{h3}}/g, data[i].h2);
+    g('main_{{index}}').id = 'main_background';
+
 }
 
 // 幻燈片切換
@@ -61,6 +70,11 @@ function switchSlider(id) {
     }
     main.className += ' main-i_active';
     ctrl.className += ' ctrl-i_active';
+
+    //切換時複製上一張到#main_background
+    setTimeout(function(){
+        g('main_background').innerHTML = main.innerHTML;
+    },1000)
 }
 
 // 動態調整圖片margin-top 使其垂直居中
