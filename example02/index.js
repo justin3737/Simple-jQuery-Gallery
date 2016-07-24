@@ -63,7 +63,19 @@ function switchSlider(id) {
     ctrl.className += ' ctrl-i_active';
 }
 
+// 動態調整圖片margin-top 使其垂直居中
+
+function movePictures() {
+    var pictures = g('.picture');
+    for (var i=0; i< pictures.length; i++) {
+        pictures[i].style.marginTop = -1 * (pictures[i].clientHeight/2) + 'px';
+    }
+}
+
 window.onload = function() {
     addSliders();
-    switchSlider(1);
+    switchSlider(2);
+    setTimeout(function(){
+        movePictures()
+    },100);
 }
