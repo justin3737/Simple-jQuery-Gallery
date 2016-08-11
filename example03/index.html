@@ -6,23 +6,24 @@
 </head>
 <link rel="stylesheet" href="style.css">
 <body>
-    <div class="wrap">
+    <div class="wrap" id="wrap">
         <!-- photo 負責平移, 旋轉 -->
-        <div class="photo photo_center photo_front" onclick="turn(this);">
+        <div class="photo photo_center photo_front" onclick="turn(this);" id="photo_{{index}}">
             <!-- photo-wrap 負責翻轉 -->
             <div class="photo-wrap">
                 <div class="side side-front">
                     <p class="image">
-                        <img src="images/1.jpg" alt="">
+                        <img src="images/{{img}}" alt="">
                     </p>
-                    <p class="caption">標題</p>
+                    <p class="caption">{{caption}}</p>
                 </div>
                 <div class="side side-back">
-                    <p class="desc">描述訊息</p>
+                    <p class="desc">{{desc}}</p>
                 </div>
             </div>
         </div>
     </div>
 </body>
+<script src="data.js"></script>
 <script src="index.js"></script>
 </html>
