@@ -9,10 +9,20 @@ function turn(elem) {
     return elem.className = cls;
 }
 
+//通用函數
 function g(selector) {
     var method = selector.substr(0,1) === '.'?
         'getElementsByClassName':'getElementById';
     return document[method](selector.substr(1));
+}
+
+//隨機生成一個值
+function random(range) {
+    var max = Math.max(range[0], range[1]);
+    var min = Math.min(range[0], range[1]);
+    var diff = max - min;
+    var number = Math.ceil(Math.random()* diff + min);
+    return number;
 }
 
 var data = data;
@@ -30,6 +40,14 @@ function addPhotos() {
         html.push(_html);
     }
     g('#wrap').innerHTML = html.join('');
+
+    rsort(random([0, data.length]));
 }
 
 addPhotos();
+
+//排序海報
+function rsort( n ) {
+    var photo_center = g('#photo_' + n);
+    photo_center.className += ' photo_center '; 
+}
