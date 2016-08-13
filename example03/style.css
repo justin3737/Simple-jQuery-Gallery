@@ -25,6 +25,7 @@ body {
     position: absolute;
     z-index: 1;
     box-shadow: 0 0 1px rgba(0,0,0,.01);
+    -webkit-transition: all .6s;
 }
 
 /* 海報的樣式 */
@@ -101,6 +102,56 @@ body {
 .photo_back .photo-wrap{
     -webkit-transform:rotateY(180deg);
 }
+
+/* 控制列樣式 */
+@font-face {
+    font-family: 'icons';
+    src: url('fonts/icons.woff') format('woff');
+}
+.nav {
+    position: absolute;
+    width: 80%;
+    left:10%;
+    line-height: 30px;
+    bottom: 20px;
+    z-index: 999;
+    text-align: center;
+}
+
+.nav .i {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    cursor: pointer;
+    background-color: #aaa;
+    text-align: center;
+
+    -webkit-border-radius: 50%;
+    -webkit-transform: scale(.48);
+}
+
+.nav .i:after {
+    content: "\e600";
+    font-family: 'icons';
+    font-size: 80%;
+    text-align: center;
+    display: inline-block;
+    line-height: 30px;
+    color: #fff;
+    opacity: 0;
+}
+.nav .i_current {
+    -webkit-transform: scale(1);
+}
+
+.nav .i_current:after {
+    opacity: 1;
+}
+
+.nav .i_back {
+    -webkit-transform: rotateY(-180deg);
+    background-color: #555;
+} 
 
 
 

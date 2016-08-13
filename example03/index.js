@@ -1,10 +1,18 @@
 //翻面控制
 function turn(elem) {
     var cls = elem.className;
+    var n = elem.id.split('_')[1];
+
+    if (!/photo_center/.test(cls)) {
+        return rsort(n);
+    }
+
     if (/photo_front/.test(cls)) {
         cls = cls.replace(/photo_front/, 'photo_back');
+        g('#nav_' + n).className += ' i_back ';
     } else {
         cls = cls.replace(/photo_back/, 'photo_front');
+        g('#nav_' + n).className = g('#nav_' + n).className.replace(/\s*i_back\s*/, " ");
     }
     return elem.className = cls;
 }
@@ -52,6 +60,7 @@ var data = data;
 function addPhotos() {
     var template = g('#wrap').innerHTML;
     var html = [];
+    var nav  = [];
 
     for (s in data) {
         var _html = template
@@ -60,10 +69,14 @@ function addPhotos() {
                     .replace('{{caption}}', data[s].title)
                     .replace('{{desc}}', data[s].desc);
         html.push(_html);
+        nav.push('<span id="nav_'+ s +'" onclick="turn( g(\'#photo_' + s + '\') )" class="i">&nbsp;</span>');
     }
+    html.push('<div class="nav">' + nav.join('') + '</div>');
     g('#wrap').innerHTML = html.join('');
 
-    rsort(random([0, data.length]));
+    setTimeout(function(){
+        rsort(random([0, data.length]));
+    },200);
 }
 
 addPhotos();
@@ -74,7 +87,15 @@ function rsort( n ) {
     var photos = [];
     for (s = 0; s < _photo.length; s++ ) {
         _photo[s].className = _photo[s].className.replace(/\s*photo_center\s*/," ");
+        _photo[s].className = _photo[s].className.replace(/\s*photo_front\s*/," ");
+        _photo[s].className = _photo[s].className.replace(/\s*photo_back\s*/," ");
+
+        _photo[s].className += ' photo_front ';
+        _photo[s].style.left = '';
+        _photo[s].style.top = '';
+        _photo[s].style['-webkit-transform'] = 'rotate(0deg)';
         photos.push(_photo[s]);
+
     }
     var photo_center = g('#photo_' + n);
     photo_center.className += ' photo_center '; 
@@ -98,4 +119,13 @@ function rsort( n ) {
         photos.style.top  =  random(ranges.right.y) +'px'; 
         photos.style['-webkit-transform'] = 'rotate(' + random([-150, 150])+ 'deg)';
     }
+
+    //處理控制鈕
+    var navs = g('.i');
+    for (var s=0; s < navs.length; s++ ){
+        navs[s].className = navs[s].className.replace(/\s*i_current\s*/, ' ');
+        navs[s].className = navs[s].className.replace(/\s*i_back\s*/, ' ');
+    }
+    g('#nav_' + n).className += ' i_current ';
+
 }
