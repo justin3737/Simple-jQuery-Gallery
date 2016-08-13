@@ -93,7 +93,7 @@ function rsort( n ) {
         _photo[s].className += ' photo_front ';
         _photo[s].style.left = '';
         _photo[s].style.top = '';
-        _photo[s].style['-webkit-transform'] = 'rotate(0deg)';
+        _photo[s].style['transform'] = _photo[s].style['-webkit-transform'] = 'rotate(0deg) scale(1.3)';
         photos.push(_photo[s]);
 
     }
@@ -110,14 +110,14 @@ function rsort( n ) {
         var photos = photos_left[s];
         photos.style.left =  random(ranges.left.x) +'px';
         photos.style.top  =  random(ranges.left.y) +'px'; 
-        photos.style['-webkit-transform'] = 'rotate(' + random([-150, 150])+ 'deg)';
+        photos.style['transform'] = photos.style['-webkit-transform'] = 'rotate(' + random([-150, 150])+ 'deg) scale(1)';
     }
 
     for (var s in photos_right) {
         var photos = photos_right[s];
         photos.style.left =  random(ranges.right.x) +'px';
         photos.style.top  =  random(ranges.right.y) +'px'; 
-        photos.style['-webkit-transform'] = 'rotate(' + random([-150, 150])+ 'deg)';
+        photos.style['transform'] = photos.style['-webkit-transform'] = 'rotate(' + random([-150, 150])+ 'deg)  scale(1)';
     }
 
     //處理控制鈕
