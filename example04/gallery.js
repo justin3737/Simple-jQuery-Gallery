@@ -1,4 +1,5 @@
 var _setting = {
+    "containerW"  : 0,
     "padding"     : 10,
     "containerGap": [1024, 768],
     "rowGap"      : [5, 3, 2],
@@ -10,25 +11,28 @@ $(function(){
 
     function onresize() {
         window.setTimeout(function(){
-            getRow();
-            setLayout();
+            setLayout(initSetting(_setting));
         }, 300);
     }
 
-    function getRow() {
+    function initSetting(options) {
         var containerW = parseInt($('#ThumbViewer').css('width'),10);
-        if (containerW > _setting["containerGap"][0]){
-            _setting["row"] = _setting["rowGap"][0];
-        } else if (containerW > _setting["containerGap"][1] && containerW < _setting["containerGap"][0]){
-            _setting["row"] = _setting["rowGap"][1];
+        /* setting row's amount */
+        if (containerW > options["containerGap"][0]){
+            options["row"] = options["rowGap"][0];
+        } else if (containerW > options["containerGap"][1] && containerW < options["containerGap"][0]){
+            options["row"] = options["rowGap"][1];
         } else {
-            _setting["row"] = _setting["rowGap"][2];
+            options["row"] = options["rowGap"][2];
         }
-        _setting["imgWidth"]  = _setting["wrapWidth"] / _setting["row"];
-        $('.wrap').css({'width': containerW});
+        /* setting image's width */
+        options["imgWidth"]  = options["wrapWidth"] / options["row"];
+        options["containerW"] = containerW;
+        return options;
     }   
 
-    function setLayout() {
+    function setLayout(options) {
+        $('.wrap').css({'width': options["containerW"]});
         $('.wrap a').each(function(idx){
             var $elm    = $(this),
                 $img    = $elm.find('img'),
@@ -38,7 +42,7 @@ $(function(){
                     "height": $img.css('height').replace('px',''),
                     "idx"   : idx
                 },
-                _style = posGen(_objectStyle);
+                _style = posGen(_objectStyle, options);
             $elm.css({
                 "position": "absolute",
                 "top"     : _style["top"],
@@ -47,19 +51,19 @@ $(function(){
         });
     }
 
-    function getLastRowElmTop(css) {
+    function getLastRowElmTop(css, options) {
         var _top = 0;
-        if (css['idx'] >= _setting["row"]) {
-            var _elm = $('.wrap a').eq(css['idx'] - _setting["row"]);
+        if (css['idx'] >= options["row"]) {
+            var _elm = $('.wrap a').eq(css['idx'] - options["row"]);
             _top = parseInt(_elm.css('top'),10) + parseInt(_elm.css('height'),10);
         }
         return _top;
     }
 
-    function posGen(css) {
-        var row  = Math.floor(css['idx']/_setting["row"]),
-            top  = getLastRowElmTop(css),
-            left = Math.floor(css['idx']%_setting["row"]) * (parseInt(css['width'],10) + _setting["padding"]),
+    function posGen(css, options) {
+        var row  = Math.floor(css['idx']/options["row"]),
+            top  = getLastRowElmTop(css, options),
+            left = Math.floor(css['idx']%options["row"]) * (parseInt(css['width'],10) + options["padding"]),
             styles = Object.assign({}, css, {
                 "top" : top,
                 "left": left
